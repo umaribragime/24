@@ -21,15 +21,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())  // Disable CSRF protection
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // No sessions
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/auth/**").permitAll()      // Allow all auth endpoints
-                        .requestMatchers("/api/articles/**").permitAll()  // Allow all article endpoints
-                        .requestMatchers("/api/courses/**").permitAll()   // Allow all course endpoints
+                        .requestMatchers("/auth/**").permitAll()        // ← REMOVE /api
+                        .requestMatchers("/articles/**").permitAll()    // ← REMOVE /api
+                        .requestMatchers("/courses/**").permitAll()     // ← REMOVE /api
                         .anyRequest().authenticated()
                 )
-                .httpBasic(basic -> basic.disable());  // Disable basic auth
+                .httpBasic(basic -> basic.disable());
 
         return http.build();
     }
