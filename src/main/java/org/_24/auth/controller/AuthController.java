@@ -14,6 +14,11 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
+    @GetMapping("/")
+    public String simpleText(){
+        return "Welcome back Umar!";
+    }
+
     @PostMapping("/register")
     public AuthResponse registerUser(@Valid @RequestBody RegisterRequest request){
         return authService.register(request);
